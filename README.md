@@ -4,193 +4,161 @@
 
 # MinDraft
 
-**A calm Markdown notepad** for opening, reading, quick-editing, and sharing `.md` files.
+**A calm Markdown notepad** — open a `.md` file, read without clutter, edit only when you need to.
 
-Preview-first · keyboard-driven · tabs · search · Mermaid & math · export to PDF
+Works offline · light & dark theme · tabs · search · PDF export · English, Spanish & Norwegian
 
 <br />
 
-[![Release](https://img.shields.io/github/v/release/akasha-code/mindraft?style=for-the-badge&label=Download)](https://github.com/akasha-code/mindraft/releases/latest)
-[![CI](https://img.shields.io/github/actions/workflow/status/akasha-code/mindraft/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/akasha-code/mindraft/actions/workflows/ci.yml)
+[![Download latest release](https://img.shields.io/github/v/release/akasha-code/mindraft?style=for-the-badge&label=Download)](https://github.com/akasha-code/mindraft/releases/latest)
 [![License](https://img.shields.io/github/license/akasha-code/mindraft?style=for-the-badge)](LICENSE)
-[![Tauri](https://img.shields.io/badge/Tauri-v2-FFC131?style=for-the-badge&logo=tauri&logoColor=000)](https://tauri.app)
-[![Svelte](https://img.shields.io/badge/Svelte-5-FF3E00?style=for-the-badge&logo=svelte&logoColor=fff)](https://svelte.dev)
 
 <br />
 
-[**Download**](#download) · [**Features**](#features) · [**Shortcuts**](#shortcuts) · [**WSL**](#windows--wsl) · [**Develop**](#development)
+[**Windows**](#windows) · [**Linux**](#linux) · [**macOS**](#macos) · [**Features**](#features) · [**FAQ**](#faq)
 
 </div>
 
 ---
 
+## Get started in 30 seconds
+
+1. **[Download MinDraft](https://github.com/akasha-code/mindraft/releases/latest)** for your system.
+2. **Install** and open the app.
+3. **Open a `.md` file** — drag it in, use `Ctrl+O`, or double-click a Markdown file after install (desktop).
+
+That’s it. No account, no cloud, no setup wizard.
+
+---
+
 ## Download
 
-Desktop builds are published on [**GitHub Releases**](https://github.com/akasha-code/mindraft/releases/latest). Pick your platform:
+All builds: **[github.com/akasha-code/mindraft/releases/latest](https://github.com/akasha-code/mindraft/releases/latest)**
 
 <!-- release-asset-names: MinDraft-[platform]-[arch][setup][ext] -->
 
 ### Windows
 
-| | Link |
+| | |
 | --- | --- |
-| **Installer (recommended)** | [**MinDraft-windows-x86_64-setup.exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64-setup.exe) |
-| **MSI package** | [**MinDraft-windows-x86_64.msi**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64.msi) |
+| **Installer (recommended)** | [**Download .exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64-setup.exe) |
+| **MSI package** | [**Download .msi**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64.msi) |
 
-Requires [WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) (usually preinstalled on Windows 10/11).
-
-Open a file from the terminal after install:
-
-```powershell
-mindraft README.md
-```
+Works on Windows 10/11 ([WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) is usually already installed).
 
 ### Linux
 
-| | Link |
+| | |
 | --- | --- |
-| **AppImage (portable)** | [**MinDraft-linux-x86_64.AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
-| **Debian / Ubuntu (.deb)** | [**MinDraft-linux-x86_64.deb**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.deb) |
+| **AppImage (portable, any distro)** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
+| **Debian / Ubuntu** | [**Download .deb**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.deb) |
 
-```bash
-chmod +x MinDraft-linux-x86_64.AppImage
-./MinDraft-linux-x86_64.AppImage notes/today.md
-```
-
-Arch Linux (build from source): see [Development](#development).
+After downloading the AppImage: make it executable, then double-click or run it.
 
 ### macOS
 
-| Chip | Link |
+| | |
 | --- | --- |
-| **Apple Silicon (M1/M2/M3…)** | [**MinDraft-darwin-aarch64.dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-aarch64.dmg) |
-| **Intel** | [**MinDraft-darwin-x86_64.dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-x86_64.dmg) |
+| **Apple Silicon (M1/M2/M3…)** | [**Download .dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-aarch64.dmg) |
+| **Intel Mac** | [**Download .dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-x86_64.dmg) |
 
-### Windows + WSL
+Open the `.dmg`, drag MinDraft to Applications, then open from Launchpad.
 
-Use **two separate installs** — one native app on Windows, one Linux build inside WSL. They share the same project files if you keep notes on the Windows drive:
+---
 
-| Where you work | Install |
+## Who is it for?
+
+- **Notes & journals** in plain Markdown
+- **READMEs and docs** you want to preview while writing
+- **Technical writing** with headings, code blocks, Mermaid diagrams, and math
+- **Quick edits** without living inside a heavy IDE
+
+MinDraft is **preview-first**: you read comfortably, tap `i` or double-click to edit one block, save, and move on.
+
+---
+
+## Features
+
+| You want to… | MinDraft lets you… |
 | --- | --- |
-| Windows desktop | [Windows installer](#windows) above |
-| WSL terminal / Linux workflow | [Linux AppImage or .deb](#linux) inside your distro |
+| **Read** | See rendered Markdown with calm typography and themes (light / dark / system) |
+| **Edit lightly** | Change one block in place — no full-screen editor unless you want it |
+| **Work on several files** | Use tabs, restore your last session on desktop |
+| **Find text** | Search with case match, regex, and replace |
+| **Navigate long docs** | Jump to headings (`Ctrl+G`) |
+| **Share or archive** | Copy, print, export HTML or PDF, reveal file in folder |
+| **Use your language** | Switch UI: English, Español, Norsk (status bar) |
 
-Example shared folder:
+Also included: auto-save, Mermaid diagrams, KaTeX math, external change detection (desktop), keyboard shortcuts overlay (`?`).
+
+---
+
+## Essential shortcuts
+
+| Action | Shortcut |
+| --- | --- |
+| Open file | `Ctrl+O` |
+| Save | `Ctrl+S` |
+| Search in document | `/` or `Ctrl+F` |
+| Jump to heading | `Ctrl+G` |
+| Next / previous tab | `Ctrl+Tab` / `Ctrl+Shift+Tab` |
+| Move between blocks | `j` / `k` |
+| Edit current block | `i` or double-click |
+| Finish editing | `Esc` |
+| All shortcuts | `?` |
+
+Power users: command mode with `:w`, `:new`, `:h Title`, `:saveas`, and more — press `:` in the app.
+
+---
+
+## Windows + WSL
+
+If you use **both** Windows and WSL, install MinDraft **twice**:
+
+| Where | What to install |
+| --- | --- |
+| Windows desktop | [Windows build](#windows) |
+| Inside WSL | [Linux build](#linux) |
+
+Keep your notes on a folder both can reach, for example:
 
 ```text
 Windows:  C:\Users\you\Documents\notes\
 WSL:      /mnt/c/Users/you/Documents/notes/
 ```
 
-Each environment keeps its own preferences (theme, locale, session). The markdown files are the same.
-
-### Web (PWA)
-
-MinDraft also ships as a static web build you can self-host or install as a PWA:
-
-```bash
-npm ci
-npm run build
-npm run preview   # local preview at http://localhost:4173
-```
-
-Browser mode supports drafts and image folders; native file dialogs, folder reveal, and external-editor integration require the desktop app.
+The **same `.md` files**; each app keeps its own theme and window layout.
 
 ---
 
-## Features
+## FAQ
 
-| | |
-| --- | --- |
-| **Preview-first** | Read comfortably; press `i` or double-click a block to edit in place |
-| **Multi-tab workspace** | Open many files, reorder tabs, restore your session on desktop |
-| **Search & replace** | Case-sensitive, regex, in-document replace |
-| **Headings** | Jump with `Ctrl+G`, `:h`, or `:heading` |
-| **Rich Markdown** | GFM, Mermaid diagrams, KaTeX math |
-| **Share menu** | Copy, print, export HTML/PDF, reveal in folder, open in external editor |
-| **Auto-save** | Toggle autosave; manual save and Save As when you need control |
-| **File watch** | Detect external changes to open files (desktop) |
-| **Themes** | Light, dark, or follow the system |
-| **Languages** | English (default), Spanish, Norwegian — switch from the status bar |
+**Is it free?**  
+Yes. Apache 2.0 — use it at home or at work.
 
----
+**Does it need the internet?**  
+No. The desktop app works fully offline.
 
-## Shortcuts
+**Where are my files stored?**  
+On your disk, wherever you save them. MinDraft does not upload your notes.
 
-| Action | Keys |
-| --- | --- |
-| Open file | `Ctrl+O` · `:e` |
-| Save | `Ctrl+S` · `:w` |
-| Save as | double-click save icon · `:saveas` |
-| New document | `:new` |
-| Search | `/` · `Ctrl+F` |
-| Headings | `Ctrl+G` · `:h Title` |
-| Next / prev tab | `Ctrl+Tab` · `:bn` / `:bp` |
-| Close tab | `Ctrl+W` · `:tabclose` |
-| Block navigation | `j` / `k` |
-| Edit block | `i` · double-click · `Esc` to confirm |
-| Shortcuts overlay | `?` |
+**Can I open `.md` files from the file manager?**  
+Yes, on desktop installs (file association after install).
 
-### Command mode
+**Spanish UI?**  
+Yes — globe icon in the status bar.
 
-```text
-:w · :saveas · :new · :e · :h Title · :tabclose · :tabonly · :tabcloseall
-:bn · :bp · :q · :wq · :q! · :x
-```
-
----
-
-## Development
-
-```bash
-git clone https://github.com/akasha-code/mindraft.git
-cd mindraft
-npm ci
-npm run tauri dev
-```
-
-```bash
-npm run check    # svelte-check + TypeScript
-npm run test     # Vitest
-```
-
-Open a fixture on launch:
-
-```bash
-npm run tauri dev -- tests/fixtures/sample.md
-```
-
-**Arch Linux** system deps:
-
-```bash
-sudo pacman -S --needed base-devel curl wget file openssl pkgconf webkit2gtk-4.1 gtk3 libappindicator-gtk3 librsvg
-```
-
-### Publish a release
-
-Tag a version to build all desktop targets and upload assets with stable filenames:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-The [Release workflow](.github/workflows/release.yml) produces the binaries linked above.
-
-### Translations
-
-UI strings live in `src/lib/i18n/locales/`. See [docs/I18N.md](docs/I18N.md).
-
----
-
-## Stack
-
-Tauri v2 · Svelte 5 · TypeScript · CodeMirror 6 · unified / remark / rehype · Vitest · GitHub Actions
+**Something broken or missing?**  
+[Open an issue](https://github.com/akasha-code/mindraft/issues) on GitHub.
 
 ---
 
 <div align="center">
 
-**[MinDraft](https://github.com/akasha-code/mindraft)** · Apache-2.0 · by [Guido Quadrini](https://www.linkedin.com/in/guidoquadrini)
+Made by **[Guido Quadrini](https://www.linkedin.com/in/guidoquadrini)** · [Support the project ☕](https://www.buymeacoffee.com/matekraft)
+
+<br />
+
+Contributors & developers → [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </div>

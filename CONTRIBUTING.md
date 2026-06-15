@@ -70,6 +70,18 @@ The [Release workflow](.github/workflows/release.yml) builds Windows, Linux, and
 
 Asset pattern is configured via `releaseAssetNamePattern` in `.github/workflows/release.yml`.
 
+## App icon
+
+Source artwork: `assets/logo.png` (1024×1024). Regenerate platform icons after updating it:
+
+```bash
+npx tauri icon assets/logo.png -o src-tauri/icons
+magick assets/logo.png -resize 32x32 static/favicon.png
+magick assets/logo.png -resize 192x192 static/icon-192.png
+magick assets/logo.png -resize 512x512 static/icon-512.png
+magick assets/logo.png -resize 180x180 static/apple-touch-icon.png
+```
+
 ## CLI
 
 ```bash

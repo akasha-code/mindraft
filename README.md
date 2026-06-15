@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="src-tauri/icons/icon.png" alt="MinDraft" width="96" height="96" />
+<img src="assets/logo.png" alt="MinDraft" width="128" height="128" />
 
 # MinDraft
 

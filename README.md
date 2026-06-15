@@ -33,7 +33,9 @@ That’s it. No account, no cloud, no setup wizard.
 
 ## Download
 
-All builds: **[github.com/akasha-code/mindraft/releases/latest](https://github.com/akasha-code/mindraft/releases/latest)**
+Pick your platform on **[GitHub Releases](https://github.com/akasha-code/mindraft/releases/latest)** — filenames stay stable, so README links always point to the same names.
+
+> **Note:** Windows, macOS, and AppImage builds are produced by GitHub Actions. If a direct link returns **404**, open the [Releases page](https://github.com/akasha-code/mindraft/releases/latest) and grab whatever is listed there, or wait for the Release workflow to finish.
 
 <!-- release-asset-names: MinDraft-[platform]-[arch][setup][ext] -->
 

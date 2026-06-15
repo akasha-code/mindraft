@@ -233,16 +233,87 @@ export async function maybeAutoSaveAfterEdit(
   await saveCurrentDocument();
 }
 
-let appCloseApproved = false;
-
-export function isAppCloseApproved(): boolean {
-  return appCloseApproved;
+export async function finishAppClose(): Promise<void> {
+  syncWorkspaceSession();
+  await getCurrentWindow().destroy();
 }
 
-async function completeAppClose(): Promise<void> {
-  syncWorkspaceSession();
-  appCloseApproved = true;
-  await getCurrentWindow().close();
+async function askCloseDecision(
+  messageKey: "closeApp.unsavedAsk" | "closeApp.discardAsk",
+  okLabelKey: "common.save" | "common.discard",
+  cancelLabelKey: "common.dontSave" | "common.cancel",
+): Promise<boolean> {
+  const message = t(messageKey);
+  const okLabel = t(okLabelKey);
+  const cancelLabel = t(cancelLabelKey);
+
+  try {
+    return await ask(message, {
+      title: t("common.appName"),
+      kind: "warning",
+      okLabel,
+      cancelLabel,
+    });
+  } catch {
+    // Fallback when the native dialog plugin is unavailable (common on minimal Linux/WSL).
+    return window.confirm(`${message}\n\nOK = ${okLabel}, Cancel = ${cancelLabel}`);
+  }
+}
+
+async function saveAllUnsavedTabs(): Promise<boolean> {
+  for (const tab of [...fileState.tabs]) {
+    if (!hasUnsavedChangesFor(tab.document)) {
+      continue;
+    }
+
+    switchWorkspaceTab(tab.id);
+
+    try {
+      await saveCurrentDocument();
+    } catch {
+      return false;
+    }
+
+    if (hasUnsavedChangesFor(tab.document)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export async function tryAutosaveBeforeClose(): Promise<boolean> {
+  if (!autosaveState.enabled) {
+    return false;
+  }
+
+  try {
+    return await saveAllUnsavedTabs();
+  } catch {
+    return false;
+  }
+}
+
+export async function promptForAppClose(): Promise<boolean> {
+  if (await tryAutosaveBeforeClose()) {
+    return true;
+  }
+
+  const shouldSave = await askCloseDecision(
+    "closeApp.unsavedAsk",
+    "common.save",
+    "common.dontSave",
+  );
+
+  if (shouldSave) {
+    return saveAllUnsavedTabs();
+  }
+
+  return askCloseDecision(
+    "closeApp.discardAsk",
+    "common.discard",
+    "common.cancel",
+  );
 }
 
 export async function requestAppClose(force = false): Promise<void> {
@@ -250,52 +321,12 @@ export async function requestAppClose(force = false): Promise<void> {
     return;
   }
 
-  if (force) {
-    await completeAppClose();
+  if (force || !hasAnyUnsavedTabs()) {
+    await finishAppClose();
     return;
   }
 
-  if (!hasAnyUnsavedTabs()) {
-    await completeAppClose();
-    return;
-  }
-
-  if (autosaveState.enabled) {
-    try {
-      for (const tab of [...fileState.tabs]) {
-        if (hasUnsavedChangesFor(tab.document)) {
-          switchWorkspaceTab(tab.id);
-          await saveCurrentDocument();
-        }
-      }
-      await completeAppClose();
-      return;
-    } catch {
-      // Fall through to manual confirmation.
-    }
-  }
-
-  const shouldSave = await ask(t("closeApp.unsavedAsk"), {
-    title: t("common.appName"),
-    kind: "warning",
-    okLabel: t("common.save"),
-    cancelLabel: t("common.dontSave"),
-  });
-
-  if (shouldSave) {
-    await saveCurrentDocument();
-    await completeAppClose();
-    return;
-  }
-
-  const shouldDiscard = await ask(t("closeApp.discardAsk"), {
-    title: t("common.appName"),
-    kind: "warning",
-    okLabel: t("common.discard"),
-    cancelLabel: t("common.cancel"),
-  });
-
-  if (shouldDiscard) {
-    await completeAppClose();
+  if (await promptForAppClose()) {
+    await finishAppClose();
   }
 }

@@ -60,6 +60,7 @@ export const no: Messages = {
     printWindow: "Kunne ikke åpne utskriftsvinduet",
     reloadFile: "Kunne ikke laste filen på nytt",
     closeFile: "Kunne ikke lukke filen",
+    closeApp: "Kunne ikke lukke appen",
     executeCommand: "Kunne ikke kjøre kommandoen",
     openBrowser: "Kunne ikke åpne filen i nettleseren",
     saveBrowser: "Kunne ikke lagre filen i nettleseren",

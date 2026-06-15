@@ -58,6 +58,7 @@ export const en = {
     printWindow: "Could not open the print window",
     reloadFile: "Could not reload the file",
     closeFile: "Could not close the file",
+    closeApp: "Could not close the app",
     executeCommand: "Could not run the command",
     openBrowser: "Could not open the file in the browser",
     saveBrowser: "Could not save the file in the browser",

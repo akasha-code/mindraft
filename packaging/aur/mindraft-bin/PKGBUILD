@@ -1,6 +1,6 @@
 # Maintainer: Guido Quadrini <96587441+akasha-code@users.noreply.github.com>
 pkgname=mindraft-bin
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="A calm Markdown notepad for opening, reading, and previewing .md files"
 arch=('x86_64')

@@ -1,7 +1,12 @@
 import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { canCloseAppWithoutPrompt } from "$lib/filesystem/closeTab";
 import { openMarkdownPath } from "$lib/filesystem/openFile";
-import { isAppCloseApproved, requestAppClose } from "$lib/filesystem/saveFile";
+import {
+  finishAppClose,
+  promptForAppClose,
+} from "$lib/filesystem/saveFile";
+import { syncWorkspaceSession } from "$lib/filesystem/workspaceSession";
 import { t } from "$lib/i18n";
 import { isTauriRuntime } from "$lib/platform/tauri";
 
@@ -24,12 +29,23 @@ export async function initAppLifecycle(
   const window = getCurrentWindow();
 
   const closeUnlisten = await window.onCloseRequested(async (event) => {
-    if (isAppCloseApproved()) {
-      return;
-    }
+    try {
+      syncWorkspaceSession();
 
-    event.preventDefault();
-    await requestAppClose(false);
+      if (canCloseAppWithoutPrompt()) {
+        // No preventDefault: Tauri destroys the window when the handler finishes.
+        return;
+      }
+
+      event.preventDefault();
+
+      if (await promptForAppClose()) {
+        await finishAppClose();
+      }
+    } catch (error) {
+      event.preventDefault();
+      onStatus(error instanceof Error ? error.message : t("errors.closeApp"));
+    }
   });
   unlisteners.push(closeUnlisten);
 

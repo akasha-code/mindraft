@@ -60,6 +60,7 @@ export const es: Messages = {
     printWindow: "No se pudo abrir la ventana de impresión",
     reloadFile: "No se pudo recargar el archivo",
     closeFile: "No se pudo cerrar el archivo",
+    closeApp: "No se pudo cerrar la aplicación",
     executeCommand: "No se pudo ejecutar el comando",
     openBrowser: "No se pudo abrir el archivo en el navegador",
     saveBrowser: "No se pudo guardar el archivo en el navegador",

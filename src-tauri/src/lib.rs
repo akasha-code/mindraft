@@ -5,7 +5,7 @@ use std::time::UNIX_EPOCH;
 
 use notify::{Config, Event, EventKind, RecommendedWatcher, RecursiveMode, Watcher};
 use serde::Serialize;
-use tauri::{AppHandle, Emitter, State};
+use tauri::{AppHandle, Emitter, Manager, State};
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -306,6 +306,21 @@ fn startup_file_from_args() -> Option<PathBuf> {
         .find(|path| path.is_file() && is_markdown_path(path))
 }
 
+fn apply_main_window_icon(app: &tauri::App) {
+    let Some(window) = app.get_webview_window("main") else {
+        return;
+    };
+
+    let icon = app
+        .default_window_icon()
+        .cloned()
+        .unwrap_or_else(|| tauri::include_image!("icons/128x128.png"));
+
+    if let Err(error) = window.set_icon(icon) {
+        eprintln!("Failed to set window icon: {error}");
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -325,6 +340,8 @@ pub fn run() {
             set_markdown_file_watch
         ])
         .setup(|app| {
+            apply_main_window_icon(app);
+
             if let Some(path) = startup_file_from_args() {
                 let handle = app.handle().clone();
                 let startup_path = path.display().to_string();

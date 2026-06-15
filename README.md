@@ -35,14 +35,14 @@ That’s it. No account, no cloud, no setup wizard.
 
 All builds for **[v0.1.0 and newer](https://github.com/akasha-code/mindraft/releases/latest)** use **stable filenames** — these links always point to the latest release.
 
-<!-- release-asset-names: MinDraft-[platform]-[arch][setup][ext] -->
+<!-- release-asset-names: MinDraft-[platform]-[arch][setup][ext] (arch is x64/amd64/aarch64 per platform) -->
 
 ### Windows
 
 | | |
 | --- | --- |
-| **Installer (recommended)** | [**Download .exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64-setup.exe) |
-| **MSI package** | [**Download .msi**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x86_64.msi) |
+| **Installer (recommended)** | [**Download .exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x64-setup.exe) |
+| **MSI package** | [**Download .msi**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x64.msi) |
 
 Works on Windows 10/11 ([WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) is usually already installed).
 
@@ -52,13 +52,13 @@ SmartScreen may warn on first download (unsigned indie app) — choose **More in
 
 | | |
 | --- | --- |
-| **AppImage (portable, any distro)** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
+| **AppImage (portable, any distro)** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-amd64.AppImage) |
 | **Debian / Ubuntu** | [**Download .deb**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.deb) |
 | **Fedora / RHEL** | [**Download .rpm**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.rpm) |
 
 ```bash
-chmod +x MinDraft-linux-x86_64.AppImage
-./MinDraft-linux-x86_64.AppImage
+chmod +x MinDraft-linux-amd64.AppImage
+./MinDraft-linux-amd64.AppImage
 ```
 
 ### Arch Linux
@@ -67,15 +67,15 @@ No separate `.pkg.tar.zst` yet — use the **AppImage** (recommended) or build f
 
 | | |
 | --- | --- |
-| **AppImage** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
+| **AppImage** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-amd64.AppImage) |
 
 ```bash
 # Optional: install AppImage launcher
 yay -S appimagelauncher   # or use chmod +x and run directly
 
-curl -LO https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage
-chmod +x MinDraft-linux-x86_64.AppImage
-./MinDraft-linux-x86_64.AppImage
+curl -LO https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-amd64.AppImage
+chmod +x MinDraft-linux-amd64.AppImage
+./MinDraft-linux-amd64.AppImage
 ```
 
 Build from source: see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -85,7 +85,7 @@ Build from source: see [CONTRIBUTING.md](CONTRIBUTING.md).
 | | |
 | --- | --- |
 | **Apple Silicon (M1/M2/M3…)** | [**Download .dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-aarch64.dmg) |
-| **Intel Mac** | [**Download .dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-x86_64.dmg) |
+| **Intel Mac** | [**Download .dmg**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-darwin-x64.dmg) |
 
 Open the `.dmg`, drag MinDraft to Applications, then open from Launchpad.
 

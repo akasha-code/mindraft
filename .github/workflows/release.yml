@@ -64,10 +64,10 @@ jobs:
 
             | Platform | File |
             | --- | --- |
-            | Windows | `MinDraft-windows-x86_64-setup.exe` · `MinDraft-windows-x86_64.msi` |
-            | Linux / Arch / WSL | `MinDraft-linux-x86_64.AppImage` · `.deb` · `.rpm` |
+            | Windows | `MinDraft-windows-x64-setup.exe` · `MinDraft-windows-x64.msi` |
+            | Linux / Arch / WSL | `MinDraft-linux-amd64.AppImage` · `.deb` · `.rpm` |
             | macOS Apple Silicon | `MinDraft-darwin-aarch64.dmg` |
-            | macOS Intel | `MinDraft-darwin-x86_64.dmg` |
+            | macOS Intel | `MinDraft-darwin-x64.dmg` |
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.target != '' && format('--target {0}', matrix.target) || '' }}

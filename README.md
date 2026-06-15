@@ -15,7 +15,7 @@ Works offline · light & dark theme · tabs · search · PDF export · English, 
 
 <br />
 
-[**Windows**](#windows) · [**Linux**](#linux) · [**macOS**](#macos) · [**Features**](#features) · [**FAQ**](#faq)
+[**Windows**](#windows) · [**Linux**](#linux) · [**Arch Linux**](#arch-linux) · [**macOS**](#macos) · [**Features**](#features) · [**FAQ**](#faq)
 
 </div>
 
@@ -23,7 +23,7 @@ Works offline · light & dark theme · tabs · search · PDF export · English, 
 
 ## Get started in 30 seconds
 
-1. **[Download MinDraft](https://github.com/akasha-code/mindraft/releases/latest)** for your system.
+1. **[Download MinDraft](https://github.com/akasha-code/mindraft/releases/latest)** for your system (links below).
 2. **Install** and open the app.
 3. **Open a `.md` file** — drag it in, use `Ctrl+O`, or double-click a Markdown file after install (desktop).
 
@@ -33,9 +33,7 @@ That’s it. No account, no cloud, no setup wizard.
 
 ## Download
 
-Pick your platform on **[GitHub Releases](https://github.com/akasha-code/mindraft/releases/latest)** — filenames stay stable, so README links always point to the same names.
-
-> **Note:** Windows, macOS, and AppImage builds are produced by GitHub Actions. If a direct link returns **404**, open the [Releases page](https://github.com/akasha-code/mindraft/releases/latest) and grab whatever is listed there, or wait for the Release workflow to finish.
+All builds for **[v0.1.0 and newer](https://github.com/akasha-code/mindraft/releases/latest)** use **stable filenames** — these links always point to the latest release.
 
 <!-- release-asset-names: MinDraft-[platform]-[arch][setup][ext] -->
 
@@ -48,14 +46,39 @@ Pick your platform on **[GitHub Releases](https://github.com/akasha-code/mindraf
 
 Works on Windows 10/11 ([WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) is usually already installed).
 
+SmartScreen may warn on first download (unsigned indie app) — choose **More info → Run anyway**.
+
 ### Linux
 
 | | |
 | --- | --- |
 | **AppImage (portable, any distro)** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
 | **Debian / Ubuntu** | [**Download .deb**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.deb) |
+| **Fedora / RHEL** | [**Download .rpm**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.rpm) |
 
-After downloading the AppImage: make it executable, then double-click or run it.
+```bash
+chmod +x MinDraft-linux-x86_64.AppImage
+./MinDraft-linux-x86_64.AppImage
+```
+
+### Arch Linux
+
+No separate `.pkg.tar.zst` yet — use the **AppImage** (recommended) or build from source:
+
+| | |
+| --- | --- |
+| **AppImage** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage) |
+
+```bash
+# Optional: install AppImage launcher
+yay -S appimagelauncher   # or use chmod +x and run directly
+
+curl -LO https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-x86_64.AppImage
+chmod +x MinDraft-linux-x86_64.AppImage
+./MinDraft-linux-x86_64.AppImage
+```
+
+Build from source: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### macOS
 
@@ -120,7 +143,7 @@ If you use **both** Windows and WSL, install MinDraft **twice**:
 | Where | What to install |
 | --- | --- |
 | Windows desktop | [Windows build](#windows) |
-| Inside WSL | [Linux build](#linux) |
+| Inside WSL | [Linux .deb or AppImage](#linux) |
 
 Keep your notes on a folder both can reach, for example:
 

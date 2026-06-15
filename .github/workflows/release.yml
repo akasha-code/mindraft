@@ -21,13 +21,13 @@ jobs:
       matrix:
         include:
           - platform: macos-latest
-            args: --target aarch64-apple-darwin
+            target: aarch64-apple-darwin
           - platform: macos-latest
-            args: --target x86_64-apple-darwin
+            target: x86_64-apple-darwin
           - platform: ubuntu-22.04
-            args: ""
+            target: ""
           - platform: windows-latest
-            args: ""
+            target: ""
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -39,6 +39,10 @@ jobs:
           cache: npm
 
       - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Rust target
+        if: matrix.target != ''
+        run: rustup target add ${{ matrix.target }}
 
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
@@ -56,15 +60,15 @@ jobs:
           tagName: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           releaseName: MinDraft ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           releaseBody: |
-            Install the asset for your platform. Asset names stay stable across releases — `/releases/latest/download/` links in the README always point to the newest build.
+            Direct downloads for every platform — stable filenames used by the [README](https://github.com/akasha-code/mindraft#download).
 
-            | Platform | Recommended | Alternative |
-            | --- | --- | --- |
-            | Windows | `MinDraft-windows-x86_64-setup.exe` | `MinDraft-windows-x86_64.msi` |
-            | Linux / WSL | `MinDraft-linux-x86_64.AppImage` | `MinDraft-linux-x86_64.deb` |
-            | macOS (Apple Silicon) | `MinDraft-darwin-aarch64.dmg` | — |
-            | macOS (Intel) | `MinDraft-darwin-x86_64.dmg` | — |
+            | Platform | File |
+            | --- | --- |
+            | Windows | `MinDraft-windows-x86_64-setup.exe` · `MinDraft-windows-x86_64.msi` |
+            | Linux / Arch / WSL | `MinDraft-linux-x86_64.AppImage` · `.deb` · `.rpm` |
+            | macOS Apple Silicon | `MinDraft-darwin-aarch64.dmg` |
+            | macOS Intel | `MinDraft-darwin-x86_64.dmg` |
           releaseDraft: false
           prerelease: false
-          args: ${{ matrix.args }}
-          releaseAssetNamePattern: "MinDraft-[platform]-[arch][setup][ext]"
+          args: ${{ matrix.target != '' && format('--target {0}', matrix.target) || '' }}
+          assetNamePattern: "MinDraft-[platform]-[arch][setup][ext]"

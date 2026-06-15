@@ -76,7 +76,7 @@ Source artwork: `assets/logo.png` (1024×1024). Regenerate platform icons after 
 
 ```bash
 # From the master JPEG/PNG (trim + ~8px margin inside the square):
-# magick SOURCE -fuzz 12% -trim +repage -resize 1008x1008 -background white -gravity center -extent 1024x1024 assets/logo.png
+# magick SOURCE -fuzz 10% -trim +repage -bordercolor white -border 28x28 -resize 960x960 -background white -gravity center -extent 1024x1024 assets/logo.png
 npx tauri icon assets/logo.png -o src-tauri/icons
 magick assets/logo.png -resize 32x32 static/favicon.png
 magick assets/logo.png -resize 192x192 static/icon-192.png

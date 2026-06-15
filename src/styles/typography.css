@@ -1,0 +1,238 @@
+.markdown-body {
+  line-height: 1.72;
+  font-size: 1.02rem;
+  color: var(--text-primary);
+  font-family:
+    "Source Serif 4",
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Book Antiqua",
+    Georgia,
+    serif;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  line-height: 1.22;
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  margin: 1.6rem 0 0.7rem;
+  color: var(--text-primary);
+}
+
+.markdown-body h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.markdown-body h2 {
+  font-size: 1.45rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.18rem;
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body table {
+  margin: 0 0 0.85rem;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.25rem;
+}
+
+.markdown-body li + li {
+  margin-top: 0.28rem;
+}
+
+.markdown-body blockquote {
+  padding: 0.1rem 0 0.1rem 0.9rem;
+  border-left: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+.markdown-body code {
+  font-family:
+    "JetBrains Mono",
+    "SFMono-Regular",
+    "Cascadia Code",
+    Consolas,
+    monospace;
+  font-size: 0.88em;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-hairline);
+  border-radius: 0.35rem;
+  padding: 0.08rem 0.32rem;
+}
+
+.markdown-body pre {
+  overflow-x: auto;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.markdown-body hr {
+  border: 0;
+  border-top: 1px solid var(--border-hairline);
+  margin: 1.6rem 0;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.94rem;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid var(--border-hairline);
+  padding: 0.48rem 0.68rem;
+  text-align: left;
+}
+
+.markdown-body th {
+  background: var(--bg-muted);
+  font-family:
+    "Inter",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-hairline);
+}
+
+.markdown-body input[type="checkbox"] {
+  margin-right: 0.4rem;
+  accent-color: var(--accent);
+}
+
+.markdown-body :global(.md-frontmatter) {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-muted);
+  overflow-x: auto;
+}
+
+.markdown-body :global(.md-frontmatter code) {
+  display: block;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-state__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 560;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.empty-state__badge:hover {
+  color: var(--accent);
+  border-color: var(--accent-soft-border);
+}
+
+.empty-state h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1.45rem;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.empty-state p {
+  margin: 0 0 1rem;
+  max-width: 26rem;
+  line-height: 1.6;
+}
+
+.empty-state__hint {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.empty-state kbd {
+  display: inline-block;
+  min-width: 1.35rem;
+  padding: 0.12rem 0.38rem;
+  border: 1px solid var(--border-hairline);
+  border-radius: 0.32rem;
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-chip);
+  font-family: inherit;
+  font-size: 0.78rem;
+}
+
+.markdown-body .mermaid {
+  margin: 0.75rem 0;
+  overflow-x: auto;
+}
+
+.markdown-body .katex-display {
+  margin: 0.75rem 0;
+  overflow-x: auto;
+}

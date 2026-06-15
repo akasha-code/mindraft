@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=MinDraft
+Comment=A calm Markdown notepad
+Exec=mindraft %F
+Icon=mindraft
+Terminal=false
+Type=Application
+Categories=Office;TextEditor;Utility;
+MimeType=text/markdown;text/x-markdown;
+StartupWMClass=mindraft

@@ -63,22 +63,24 @@ chmod +x MinDraft-linux-amd64.AppImage
 
 ### Arch Linux
 
-No separate `.pkg.tar.zst` yet — use the **AppImage** (recommended) or build from source:
-
 | | |
 | --- | --- |
+| **AUR (`mindraft-bin`)** | `yay -S mindraft-bin` after [publishing to AUR](packaging/aur/mindraft-bin/README.md) |
 | **AppImage** | [**Download AppImage**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-amd64.AppImage) |
+| **Local PKGBUILD** | `packaging/aur/mindraft-bin/` → `makepkg -si` |
 
 ```bash
-# Optional: install AppImage launcher
-yay -S appimagelauncher   # or use chmod +x and run directly
+# From this repo (before AUR publish)
+cd packaging/aur/mindraft-bin
+makepkg -si
 
+# Or AppImage directly
 curl -LO https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-linux-amd64.AppImage
 chmod +x MinDraft-linux-amd64.AppImage
 ./MinDraft-linux-amd64.AppImage
 ```
 
-Build from source: see [CONTRIBUTING.md](CONTRIBUTING.md).
+Build from source: see [CONTRIBUTING.md](CONTRIBUTING.md). AUR packaging notes: [packaging/aur/mindraft-bin/README.md](packaging/aur/mindraft-bin/README.md).
 
 ### macOS
 

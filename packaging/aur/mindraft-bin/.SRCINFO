@@ -1,0 +1,24 @@
+pkgbase = mindraft-bin
+	pkgdesc = A calm Markdown notepad for opening, reading, and previewing .md files
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://github.com/akasha-code/mindraft
+	arch = x86_64
+	license = Apache
+	depends = fuse2
+	depends = hicolor-icon-theme
+	optdepends = appimagelauncher: integrate AppImages with the desktop environment
+	provides = mindraft
+	conflicts = mindraft
+	options = !strip
+	options = !debug
+	source = mindraft-bin-0.1.0.AppImage::https://github.com/akasha-code/mindraft/releases/download/v0.1.0/MinDraft-linux-amd64.AppImage
+	source = mindraft.sh
+	source = mindraft.desktop
+	source = mindraft.png
+	sha256sums = ca9293094df7897078f06bad5dffcd2abe607a04259770b5b5d526342cc01335
+	sha256sums = 3cf9e17f3ac1934067bd95aabdf9fc2d8569b8c9be3da5721820d3329bba3ed0
+	sha256sums = b56bab8b9565c836f6bd93eb9d7bf12db41164371bee5140bfc1d1cf8dbc1a52
+	sha256sums = 14f3bc564c493ba9a4ea598b9455c87b1600493a9f64721d3ffaa7013055e4ac
+
+pkgname = mindraft-bin

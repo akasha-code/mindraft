@@ -1,0 +1,36 @@
+# Maintainer: Guido Quadrini <96587441+akasha-code@users.noreply.github.com>
+pkgname=mindraft-bin
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A calm Markdown notepad for opening, reading, and previewing .md files"
+arch=('x86_64')
+url="https://github.com/akasha-code/mindraft"
+license=('Apache')
+depends=('fuse2' 'hicolor-icon-theme')
+optdepends=(
+  'appimagelauncher: integrate AppImages with the desktop environment'
+)
+provides=('mindraft')
+conflicts=('mindraft')
+options=('!strip' '!debug')
+source=(
+  "$pkgname-$pkgver.AppImage::https://github.com/akasha-code/mindraft/releases/download/v$pkgver/MinDraft-linux-amd64.AppImage"
+  mindraft.sh
+  mindraft.desktop
+  mindraft.png
+)
+sha256sums=(
+  'ca9293094df7897078f06bad5dffcd2abe607a04259770b5b5d526342cc01335'
+  '3cf9e17f3ac1934067bd95aabdf9fc2d8569b8c9be3da5721820d3329bba3ed0'
+  'b56bab8b9565c836f6bd93eb9d7bf12db41164371bee5140bfc1d1cf8dbc1a52'
+  '14f3bc564c493ba9a4ea598b9455c87b1600493a9f64721d3ffaa7013055e4ac'
+)
+
+package() {
+  install -dm755 "$pkgdir/opt/mindraft"
+  install -m755 "$srcdir/$pkgname-$pkgver.AppImage" "$pkgdir/opt/mindraft/mindraft.AppImage"
+  install -Dm755 mindraft.sh "$pkgdir/usr/bin/mindraft"
+  install -Dm644 mindraft.desktop "$pkgdir/usr/share/applications/mindraft.desktop"
+  install -Dm644 mindraft.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/mindraft.png"
+  install -Dm644 mindraft.png "$pkgdir/usr/share/pixmaps/mindraft.png"
+}

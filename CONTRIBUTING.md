@@ -75,6 +75,8 @@ Asset pattern is configured via `releaseAssetNamePattern` in `.github/workflows/
 Source artwork: `assets/logo.png` (1024×1024). Regenerate platform icons after updating it:
 
 ```bash
+# From the master JPEG/PNG (trim + ~8px margin inside the square):
+# magick SOURCE -fuzz 12% -trim +repage -resize 1008x1008 -background white -gravity center -extent 1024x1024 assets/logo.png
 npx tauri icon assets/logo.png -o src-tauri/icons
 magick assets/logo.png -resize 32x32 static/favicon.png
 magick assets/logo.png -resize 192x192 static/icon-192.png

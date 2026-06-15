@@ -233,18 +233,30 @@ export async function maybeAutoSaveAfterEdit(
   await saveCurrentDocument();
 }
 
+let appCloseApproved = false;
+
+export function isAppCloseApproved(): boolean {
+  return appCloseApproved;
+}
+
+async function completeAppClose(): Promise<void> {
+  syncWorkspaceSession();
+  appCloseApproved = true;
+  await getCurrentWindow().close();
+}
+
 export async function requestAppClose(force = false): Promise<void> {
   if (!isTauriRuntime()) {
     return;
   }
 
   if (force) {
-    await getCurrentWindow().close();
+    await completeAppClose();
     return;
   }
 
   if (!hasAnyUnsavedTabs()) {
-    await getCurrentWindow().close();
+    await completeAppClose();
     return;
   }
 
@@ -256,7 +268,7 @@ export async function requestAppClose(force = false): Promise<void> {
           await saveCurrentDocument();
         }
       }
-      await getCurrentWindow().close();
+      await completeAppClose();
       return;
     } catch {
       // Fall through to manual confirmation.
@@ -272,7 +284,7 @@ export async function requestAppClose(force = false): Promise<void> {
 
   if (shouldSave) {
     await saveCurrentDocument();
-    await getCurrentWindow().close();
+    await completeAppClose();
     return;
   }
 
@@ -284,6 +296,6 @@ export async function requestAppClose(force = false): Promise<void> {
   });
 
   if (shouldDiscard) {
-    await getCurrentWindow().close();
+    await completeAppClose();
   }
 }

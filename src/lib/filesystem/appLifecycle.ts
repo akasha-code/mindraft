@@ -1,7 +1,7 @@
 import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { openMarkdownPath } from "$lib/filesystem/openFile";
-import { requestAppClose } from "$lib/filesystem/saveFile";
+import { isAppCloseApproved, requestAppClose } from "$lib/filesystem/saveFile";
 import { t } from "$lib/i18n";
 import { isTauriRuntime } from "$lib/platform/tauri";
 
@@ -24,6 +24,10 @@ export async function initAppLifecycle(
   const window = getCurrentWindow();
 
   const closeUnlisten = await window.onCloseRequested(async (event) => {
+    if (isAppCloseApproved()) {
+      return;
+    }
+
     event.preventDefault();
     await requestAppClose(false);
   });

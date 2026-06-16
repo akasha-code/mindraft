@@ -5,4 +5,4 @@
 : "${GSK_RENDERER:=cairo}"
 export WEBKIT_DISABLE_DMABUF_RENDERER GSK_RENDERER
 
-exec /opt/mindraft/mindraft.AppImage "$@"
+exec /opt/mindraft/mindraft "$@"

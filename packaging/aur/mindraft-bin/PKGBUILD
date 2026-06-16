@@ -1,34 +1,40 @@
 # Maintainer: Guido Quadrini <96587441+akasha-code@users.noreply.github.com>
 pkgname=mindraft-bin
 pkgver=0.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A calm Markdown notepad for opening, reading, and previewing .md files"
 arch=('x86_64')
 url="https://github.com/akasha-code/mindraft"
 license=('Apache')
-depends=('fuse2' 'hicolor-icon-theme')
+depends=('gtk3' 'libsoup3' 'webkit2gtk-4.1' 'hicolor-icon-theme')
 optdepends=(
-  'appimagelauncher: integrate AppImages with the desktop environment'
+  'fuse2: required only if you run the upstream AppImage directly'
 )
 provides=('mindraft')
 conflicts=('mindraft')
 options=('!strip' '!debug')
 source=(
-  "$pkgname-$pkgver.AppImage::https://github.com/akasha-code/mindraft/releases/download/v$pkgver/MinDraft-linux-amd64.AppImage"
+  "$pkgname-$pkgver.deb::https://github.com/akasha-code/mindraft/releases/download/v$pkgver/MinDraft-linux-amd64.deb"
   mindraft.sh
   mindraft.desktop
   mindraft.png
 )
 sha256sums=(
-  '100f378a41b716db18a4d8a485a214677b4f8b5219e92ff27545d73046a16578'
-  '8d18cebe6e02f56968d2ad89ba674a51187363b5f2964112c5b849110957670f'
+  'a5ba4fc3c93be9c6fbce63a46f2599995f020e2710b706e5f02d9eb314f4c1d6'
+  '9d5d74f57b6e0f84fb758a9aecf846d9392c52d29a857f4ebd1e495c0ba700ab'
   'b56bab8b9565c836f6bd93eb9d7bf12db41164371bee5140bfc1d1cf8dbc1a52'
   '14f3bc564c493ba9a4ea598b9455c87b1600493a9f64721d3ffaa7013055e4ac'
 )
 
+prepare() {
+  cd "$srcdir"
+  ar x "$pkgname-$pkgver.deb" data.tar.gz
+  tar xf data.tar.gz
+}
+
 package() {
   install -dm755 "$pkgdir/opt/mindraft"
-  install -m755 "$srcdir/$pkgname-$pkgver.AppImage" "$pkgdir/opt/mindraft/mindraft.AppImage"
+  install -m755 "$srcdir/usr/bin/mindraft" "$pkgdir/opt/mindraft/mindraft"
   install -Dm755 mindraft.sh "$pkgdir/usr/bin/mindraft"
   install -Dm644 mindraft.desktop "$pkgdir/usr/share/applications/mindraft.desktop"
   install -Dm644 mindraft.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/mindraft.png"

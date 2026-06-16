@@ -29,22 +29,26 @@ export async function initAppLifecycle(
   const window = getCurrentWindow();
 
   const closeUnlisten = await window.onCloseRequested(async (event) => {
+    // Always intercept: we close explicitly via destroy()/exit_app (reliable on Windows).
+    event.preventDefault();
+
     try {
       syncWorkspaceSession();
 
       if (canCloseAppWithoutPrompt()) {
-        // No preventDefault: Tauri destroys the window when the handler finishes.
+        await finishAppClose();
         return;
       }
-
-      event.preventDefault();
 
       if (await promptForAppClose()) {
         await finishAppClose();
       }
     } catch (error) {
-      event.preventDefault();
       onStatus(error instanceof Error ? error.message : t("errors.closeApp"));
+
+      if (canCloseAppWithoutPrompt()) {
+        await finishAppClose();
+      }
     }
   });
   unlisteners.push(closeUnlisten);

@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { ask, save } from "@tauri-apps/plugin-dialog";
+import { confirm, save } from "@tauri-apps/plugin-dialog";
 import { autosaveState } from "$lib/stores/autosave.svelte";
 import {
   downloadMarkdownFile,
@@ -235,28 +235,29 @@ export async function maybeAutoSaveAfterEdit(
 
 export async function finishAppClose(): Promise<void> {
   syncWorkspaceSession();
-  await getCurrentWindow().destroy();
+
+  try {
+    await getCurrentWindow().destroy();
+  } catch {
+    // Fall through to hard exit below.
+  }
+
+  // destroy() can resolve without closing on some Windows/WebView2 builds.
+  await invoke("exit_app");
 }
 
 async function askCloseDecision(
   messageKey: "closeApp.unsavedAsk" | "closeApp.discardAsk",
-  okLabelKey: "common.save" | "common.discard",
-  cancelLabelKey: "common.dontSave" | "common.cancel",
 ): Promise<boolean> {
   const message = t(messageKey);
-  const okLabel = t(okLabelKey);
-  const cancelLabel = t(cancelLabelKey);
 
   try {
-    return await ask(message, {
+    return await confirm(message, {
       title: t("common.appName"),
       kind: "warning",
-      okLabel,
-      cancelLabel,
     });
   } catch {
-    // Fallback when the native dialog plugin is unavailable (common on minimal Linux/WSL).
-    return window.confirm(`${message}\n\nOK = ${okLabel}, Cancel = ${cancelLabel}`);
+    return window.confirm(message);
   }
 }
 
@@ -299,21 +300,13 @@ export async function promptForAppClose(): Promise<boolean> {
     return true;
   }
 
-  const shouldSave = await askCloseDecision(
-    "closeApp.unsavedAsk",
-    "common.save",
-    "common.dontSave",
-  );
+  const shouldSave = await askCloseDecision("closeApp.unsavedAsk");
 
   if (shouldSave) {
     return saveAllUnsavedTabs();
   }
 
-  return askCloseDecision(
-    "closeApp.discardAsk",
-    "common.discard",
-    "common.cancel",
-  );
+  return askCloseDecision("closeApp.discardAsk");
 }
 
 export async function requestAppClose(force = false): Promise<void> {

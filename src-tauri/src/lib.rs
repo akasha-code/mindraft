@@ -321,6 +321,11 @@ fn apply_main_window_icon(app: &tauri::App) {
     }
 }
 
+#[tauri::command]
+fn exit_app() {
+    std::process::exit(0);
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -337,7 +342,8 @@ pub fn run() {
             get_markdown_file_metadata,
             open_markdown_externally,
             reveal_markdown_in_folder,
-            set_markdown_file_watch
+            set_markdown_file_watch,
+            exit_app
         ])
         .setup(|app| {
             apply_main_window_icon(app);

@@ -36,19 +36,8 @@ export function hasUnsavedChangesFor(document: MarkdownDocument): boolean {
     return document.dirty;
   }
 
-  if (document.raw !== document.lastSavedRaw) {
-    return true;
-  }
-
-  const savedBlocks = refreshSavedBlocksCache(document);
-  return document.blocks.some((block, index) => {
-    const savedBlock = savedBlocks[index];
-    if (!savedBlock) {
-      return true;
-    }
-
-    return block.raw !== savedBlock.raw;
-  });
+  // Raw text is the source of truth; block re-parses can diverge without user edits.
+  return document.raw !== document.lastSavedRaw;
 }
 
 export function isBlockUnsaved(block: MarkdownBlock): boolean {

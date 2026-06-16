@@ -89,19 +89,18 @@
 
 <style>
   .inline-editor {
-    border: 1px solid var(--accent-soft-border);
+    border: none;
     border-radius: var(--radius-sm);
-    background: var(--bg-surface);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+    background: transparent;
     min-height: 2.5rem;
   }
 
   .inline-editor :global(.cm-editor) {
     min-height: 2.5rem;
+    border-radius: inherit;
   }
 
   .inline-editor :global(.cm-editor.cm-focused) {
-    box-shadow: 0 0 0 3px var(--accent-ring);
-    border-radius: var(--radius-sm);
+    outline: none;
   }
 </style>

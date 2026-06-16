@@ -1,6 +1,6 @@
 {
   "name": "mindraft",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "MinDraft — a calm Markdown notepad for opening, reading, and previewing .md files",
   "type": "module",
   "scripts": {

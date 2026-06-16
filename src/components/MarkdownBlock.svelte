@@ -205,15 +205,33 @@
   }
 
   .md-block--editing {
-    background: var(--bg-surface);
-    border-color: var(--accent-soft-border);
-    box-shadow: var(--shadow-block);
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
   }
 
   .md-block--editing::before {
-    background: var(--accent);
+    top: 0.35rem;
+    bottom: 0.35rem;
+    width: 1.5px;
+    background: color-mix(in srgb, var(--accent) 72%, transparent);
+  }
+
+  .md-block--editing :global(.inline-editor) {
+    border: 0.5px solid var(--border-hairline);
+    border-radius: calc(var(--radius-sm) - 0.05rem);
+    background: var(--bg-surface);
+    box-shadow: none;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .md-block--editing :global(.inline-editor:focus-within) {
+    border-color: color-mix(in srgb, var(--accent) 28%, var(--border-hairline));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-ring) 65%, transparent);
   }
 
   .md-block--search-hit {

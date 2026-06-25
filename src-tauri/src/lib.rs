@@ -26,6 +26,10 @@ struct WatchState {
     path: Option<String>,
 }
 
+struct LaunchState {
+    pending_file: Mutex<Option<String>>,
+}
+
 fn is_markdown_path(path: &Path) -> bool {
     path.extension()
         .and_then(|value| value.to_str())
@@ -299,11 +303,77 @@ fn set_markdown_file_watch(
     Ok(())
 }
 
-fn startup_file_from_args() -> Option<PathBuf> {
-    std::env::args()
-        .skip(1)
-        .map(PathBuf::from)
-        .find(|path| path.is_file() && is_markdown_path(path))
+fn markdown_path_from_args<I, S>(args: I, cwd: Option<&Path>) -> Option<PathBuf>
+where
+    I: IntoIterator<Item = S>,
+    S: AsRef<str>,
+{
+    for arg in args {
+        let arg = arg.as_ref();
+        if arg.is_empty() || arg.starts_with('-') {
+            continue;
+        }
+
+        let mut path = PathBuf::from(arg);
+        if !path.is_absolute() {
+            if let Some(cwd) = cwd {
+                path = cwd.join(path);
+            }
+        }
+
+        if path.is_file() && is_markdown_path(&path) {
+            return path.canonicalize().ok().or(Some(path));
+        }
+    }
+
+    None
+}
+
+fn store_pending_open_file(state: &LaunchState, path: PathBuf) {
+    if let Ok(mut pending) = state.pending_file.lock() {
+        *pending = Some(path.display().to_string());
+    }
+}
+
+fn emit_open_file_from_args(app: &AppHandle, path: &str) {
+    let _ = app.emit("open-file-from-args", path.to_string());
+}
+
+fn focus_main_window(app: &AppHandle) {
+    let Some(window) = app.get_webview_window("main") else {
+        return;
+    };
+
+    let _ = window.unminimize();
+    let _ = window.show();
+    let _ = window.set_focus();
+}
+
+fn queue_startup_file(app: &AppHandle, args: Vec<String>, cwd: Option<&Path>) {
+    let Some(path) = markdown_path_from_args(args, cwd) else {
+        return;
+    };
+
+    if let Some(state) = app.try_state::<LaunchState>() {
+        store_pending_open_file(state.inner(), path);
+    }
+}
+
+fn open_file_in_running_app(app: &AppHandle, args: Vec<String>, cwd: Option<&Path>) {
+    let Some(path) = markdown_path_from_args(args, cwd) else {
+        return;
+    };
+
+    emit_open_file_from_args(app, &path.display().to_string());
+}
+
+#[tauri::command]
+fn take_startup_file_path(state: State<'_, LaunchState>) -> Option<String> {
+    state
+        .pending_file
+        .lock()
+        .ok()
+        .and_then(|mut pending| pending.take())
 }
 
 fn apply_main_window_icon(app: &tauri::App) {
@@ -329,12 +399,19 @@ fn exit_app() {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            focus_main_window(app);
+            open_file_in_running_app(app, args, Some(Path::new(&cwd)));
+        }))
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .manage(Mutex::new(WatchState {
             watcher: None,
             path: None,
         }))
+        .manage(LaunchState {
+            pending_file: Mutex::new(None),
+        })
         .invoke_handler(tauri::generate_handler![
             read_markdown_file,
             write_markdown_file,
@@ -343,18 +420,54 @@ pub fn run() {
             open_markdown_externally,
             reveal_markdown_in_folder,
             set_markdown_file_watch,
+            take_startup_file_path,
             exit_app
         ])
         .setup(|app| {
             apply_main_window_icon(app);
 
-            if let Some(path) = startup_file_from_args() {
-                let handle = app.handle().clone();
-                let startup_path = path.display().to_string();
-                let _ = handle.emit("startup-open-file", startup_path);
-            }
+            let args: Vec<String> = std::env::args().skip(1).collect();
+            let cwd = std::env::current_dir().ok();
+            queue_startup_file(app.handle(), args, cwd.as_deref());
+
             Ok(())
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+
+    #[test]
+    fn resolves_relative_markdown_from_cwd() {
+        let dir = std::env::temp_dir().join(format!("mindraft-test-{}", std::process::id()));
+        fs::create_dir_all(&dir).expect("create temp dir");
+        let path = dir.join("note.md");
+        fs::write(&path, "# hello").expect("write temp file");
+
+        let resolved =
+            markdown_path_from_args(["note.md"], Some(&dir)).expect("markdown path");
+        assert_eq!(resolved, path.canonicalize().unwrap_or(path));
+
+        let _ = fs::remove_dir_all(dir);
+    }
+
+    #[test]
+    fn ignores_flags_and_non_markdown_args() {
+        let dir = std::env::temp_dir().join(format!("mindraft-test-txt-{}", std::process::id()));
+        fs::create_dir_all(&dir).expect("create temp dir");
+        let path = dir.join("plain.txt");
+        fs::write(&path, "plain").expect("write temp file");
+
+        assert!(markdown_path_from_args(
+            ["--verbose", path.to_string_lossy().as_ref()],
+            None
+        )
+        .is_none());
+
+        let _ = fs::remove_dir_all(dir);
+    }
 }

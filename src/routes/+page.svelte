@@ -326,13 +326,10 @@
       if (message) {
         notify(message);
       }
-    }).then((cleanup) => {
+    }).then(async (cleanup) => {
       cleanupLifecycle = cleanup;
+      await restoreWorkspaceSessionIfEmpty();
     });
-
-    const restoreTimer = window.setTimeout(() => {
-      void restoreWorkspaceSessionIfEmpty();
-    }, 120);
 
     const handleBeforeUnload = () => {
       syncWorkspaceSession();
@@ -343,7 +340,6 @@
     return () => {
       cleanupLifecycle?.();
       cleanupWatch();
-      clearTimeout(restoreTimer);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   });

@@ -1,3 +1,4 @@
+import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { canCloseAppWithoutPrompt } from "$lib/filesystem/closeTab";
@@ -10,6 +11,17 @@ import { syncWorkspaceSession } from "$lib/filesystem/workspaceSession";
 import { t } from "$lib/i18n";
 import { isTauriRuntime } from "$lib/platform/tauri";
 
+async function openFileFromLaunchArgs(
+  path: string,
+  onStatus: (message: string | null) => void,
+): Promise<void> {
+  try {
+    await openMarkdownPath(path);
+  } catch (error) {
+    onStatus(error instanceof Error ? error.message : t("errors.openFile"));
+  }
+}
+
 export async function initAppLifecycle(
   onStatus: (message: string | null) => void,
 ): Promise<(() => void) | undefined> {
@@ -19,12 +31,18 @@ export async function initAppLifecycle(
 
   const unlisteners: Array<() => void> = [];
 
-  const startupUnlisten = await listen<string>("startup-open-file", (event) => {
-    void openMarkdownPath(event.payload).catch((error) => {
-      onStatus(error instanceof Error ? error.message : t("errors.openFile"));
-    });
-  });
-  unlisteners.push(startupUnlisten);
+  const openFromArgsUnlisten = await listen<string>(
+    "open-file-from-args",
+    (event) => {
+      void openFileFromLaunchArgs(event.payload, onStatus);
+    },
+  );
+  unlisteners.push(openFromArgsUnlisten);
+
+  const pendingPath = await invoke<string | null>("take_startup_file_path");
+  if (pendingPath) {
+    await openFileFromLaunchArgs(pendingPath, onStatus);
+  }
 
   const window = getCurrentWindow();
 

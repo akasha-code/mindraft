@@ -24,7 +24,7 @@ Works offline · light & dark theme · tabs · search · PDF export · English, 
 ## Get started in 30 seconds
 
 1. **[Download MinDraft](https://github.com/akasha-code/mindraft/releases/latest)** for your system (links below).
-2. **Install** and open the app.
+2. **Install or run** the build you chose (installer, portable `.exe`, or Linux package).
 3. **Open a `.md` file** — drag it in, use `Ctrl+O`, or double-click a Markdown file after install (desktop).
 
 That’s it. No account, no cloud, no setup wizard.
@@ -43,10 +43,29 @@ All builds for **[v0.1.0 and newer](https://github.com/akasha-code/mindraft/rele
 | --- | --- |
 | **Installer (recommended)** | [**Download .exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x64-setup.exe) |
 | **MSI package** | [**Download .msi**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x64.msi) |
+| **Portable (no install)** | [**Download portable .exe**](https://github.com/akasha-code/mindraft/releases/latest/download/MinDraft-windows-x64-portable.exe) |
 
-Works on Windows 10/11 ([WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) is usually already installed).
+#### Portable build (self-extracting)
+
+Use this if you want MinDraft on a USB stick, on a locked-down PC, or **without running an installer**:
+
+1. Download **`MinDraft-windows-x64-portable.exe`** (~200 MB — includes WebView2).
+2. **Double-click the same file every time** you want to open MinDraft.
+3. On first run it extracts to `%LOCALAPPDATA%\MinDraft\` and starts the app. Later runs reuse that folder and launch again — you always open the **same downloaded portable file**.
+4. No admin rights, no registry, no Start Menu entry.
+
+**Trade-offs vs the installer**
+
+| | Installer | Portable |
+| --- | --- | --- |
+| Setup | Wizard / MSI | None — just run the file |
+| WebView2 | Uses system runtime (smaller download) | Embedded (works offline) |
+| Open `.md` from Explorer | Yes (file association) | No — open files from inside MinDraft or drag & drop |
+| Uninstall | Settings → Apps | Delete `%LOCALAPPDATA%\MinDraft` and the portable `.exe` |
 
 SmartScreen may warn on first download (unsigned indie app) — choose **More info → Run anyway**.
+
+The standard installer still needs [WebView2](https://developer.microsoft.com/microsoft-edge/webview2/) on the PC (usually already present on Windows 10/11). The portable build does **not** depend on it.
 
 ### Linux
 
@@ -170,7 +189,10 @@ No. The desktop app works fully offline.
 On your disk, wherever you save them. MinDraft does not upload your notes.
 
 **Can I open `.md` files from the file manager?**  
-Yes, on desktop installs (file association after install).
+Yes, with the **installer** or MSI (file association). The **portable** build does not register associations — use **Open** in the app or drag & drop.
+
+**Portable vs installer on Windows?**  
+See [Portable build](#portable-build-self-extracting) above. Portable = one self-extracting `.exe`, no install; installer = smaller download and `.md` double-click from Explorer.
 
 **Spanish UI?**  
 Yes — globe icon in the status bar.

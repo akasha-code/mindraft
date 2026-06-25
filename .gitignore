@@ -3,6 +3,11 @@ node_modules
 /build
 /.svelte-kit
 /package
+src-tauri/WebView2FixedRuntime/
+src-tauri/WebView2FixedRuntime.cab
+packaging/windows/portable-stage/
+packaging/windows/portable.7z
+MinDraft-windows-x64-portable.exe
 .env
 .env.*
 !.env.example

@@ -1,0 +1,9 @@
+;!@Install@!UTF-8!
+Title="MinDraft Portable"
+BeginPrompt="Preparing MinDraft..."
+ExtractTitle="Extracting MinDraft..."
+ExtractPath="{LOCALAPPDATA}\MinDraft"
+RunProgram="MinDraft.exe"
+GUIMode="2"
+OverwriteMode="2"
+;!@InstallEnd@!

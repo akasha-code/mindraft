@@ -64,7 +64,7 @@ jobs:
 
             | Platform | File |
             | --- | --- |
-            | Windows | `MinDraft-windows-x64-setup.exe` · `MinDraft-windows-x64.msi` |
+            | Windows | `MinDraft-windows-x64-setup.exe` · `MinDraft-windows-x64.msi` · `MinDraft-windows-x64-portable.exe` |
             | Linux / Arch / WSL | `MinDraft-linux-amd64.AppImage` · `.deb` · `.rpm` |
             | macOS Apple Silicon | `MinDraft-darwin-aarch64.dmg` |
             | macOS Intel | `MinDraft-darwin-x64.dmg` |
@@ -72,3 +72,16 @@ jobs:
           prerelease: false
           args: ${{ matrix.target != '' && format('--target {0}', matrix.target) || '' }}
           assetNamePattern: "MinDraft-[platform]-[arch][setup][ext]"
+
+      - name: Build Windows portable SFX
+        if: matrix.platform == 'windows-latest'
+        shell: pwsh
+        run: ./packaging/windows/build-portable.ps1
+
+      - name: Upload Windows portable SFX
+        if: matrix.platform == 'windows-latest'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}" MinDraft-windows-x64-portable.exe --clobber

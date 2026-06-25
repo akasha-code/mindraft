@@ -1,6 +1,6 @@
 # Maintainer: Guido Quadrini <96587441+akasha-code@users.noreply.github.com>
 pkgname=mindraft-bin
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="A calm Markdown notepad for opening, reading, and previewing .md files"
 arch=('x86_64')
@@ -24,7 +24,7 @@ source=(
   mindraft.png
 )
 sha256sums=(
-  'ec8c11b17e25de5c394c26ce68828c41a4d0ba41555af77f772dbced2a5dff10'
+  '01e0d5e173ac62c0f61dd5ca544cc373780f166561168cfd9d6dc0fc4f730e51'
   '6f88591e5279389fd255231372e3b49bc7afab4e7573609d1363558eb072c196'
   'b56bab8b9565c836f6bd93eb9d7bf12db41164371bee5140bfc1d1cf8dbc1a52'
   '14f3bc564c493ba9a4ea598b9455c87b1600493a9f64721d3ffaa7013055e4ac'

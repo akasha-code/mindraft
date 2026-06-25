@@ -9,6 +9,7 @@ license=('Apache')
 depends=('gtk3' 'libsoup3' 'mesa' 'webkit2gtk-4.1' 'hicolor-icon-theme')
 optdepends=(
   'fuse2: required only if you run the upstream AppImage directly'
+  'noto-fonts-emoji: color emoji rendering when offline on Linux'
   'vulkan-intel: GPU acceleration for Intel graphics'
   'vulkan-radeon: GPU acceleration for AMD graphics'
   'nvidia-utils: GPU acceleration for NVIDIA graphics'
@@ -23,7 +24,7 @@ source=(
   mindraft.png
 )
 sha256sums=(
-  'cacf815bd8a3944fa45ed61c473303b7c3d7657377905fc21cdac6d021efd18f'
+  'ec8c11b17e25de5c394c26ce68828c41a4d0ba41555af77f772dbced2a5dff10'
   '6f88591e5279389fd255231372e3b49bc7afab4e7573609d1363558eb072c196'
   'b56bab8b9565c836f6bd93eb9d7bf12db41164371bee5140bfc1d1cf8dbc1a52'
   '14f3bc564c493ba9a4ea598b9455c87b1600493a9f64721d3ffaa7013055e4ac'

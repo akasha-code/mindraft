@@ -11,7 +11,7 @@ export function createEditorTheme() {
       },
       ".cm-content": {
         fontFamily:
-          '"JetBrains Mono", "SFMono-Regular", "Cascadia Code", Consolas, monospace',
+          '"JetBrains Mono", "SFMono-Regular", "Cascadia Code", Consolas, monospace, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", emoji',
         lineHeight: "1.6",
         padding: "0.65rem 0.2rem",
         caretColor: "var(--accent)",

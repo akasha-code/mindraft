@@ -43,6 +43,14 @@
   --statusbar-height: 1.65rem;
   --author-footer-height: 1.55rem;
   --content-width: 44rem;
+
+  --font-emoji:
+    "Noto Color Emoji",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Twemoji Mozilla",
+    emoji;
 }
 
 [data-theme="dark"] {
@@ -102,7 +110,9 @@ body {
     "Segoe UI",
     system-ui,
     -apple-system,
-    sans-serif;
+    sans-serif,
+    var(--font-emoji);
+  font-variant-emoji: emoji;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

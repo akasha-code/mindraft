@@ -8,7 +8,9 @@
     "Palatino Linotype",
     "Book Antiqua",
     Georgia,
-    serif;
+    serif,
+    var(--font-emoji);
+  font-variant-emoji: emoji;
 }
 
 .markdown-body h1,
@@ -19,7 +21,8 @@
     "Inter",
     "Segoe UI",
     system-ui,
-    sans-serif;
+    sans-serif,
+    var(--font-emoji);
   line-height: 1.22;
   font-weight: 620;
   letter-spacing: -0.025em;
@@ -70,7 +73,8 @@
     "SFMono-Regular",
     "Cascadia Code",
     Consolas,
-    monospace;
+    monospace,
+    var(--font-emoji);
   font-size: 0.88em;
   background: var(--bg-muted);
   border: 1px solid var(--border-hairline);
@@ -119,7 +123,8 @@
     "Inter",
     "Segoe UI",
     system-ui,
-    sans-serif;
+    sans-serif,
+    var(--font-emoji);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.03em;

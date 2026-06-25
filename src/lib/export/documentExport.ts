@@ -12,12 +12,12 @@ const EXPORT_STYLES = `
     padding: 2rem 1.5rem;
     background: #fff;
     color: #1a1a18;
-    font-family: "Source Serif 4", Georgia, serif;
+    font-family: "Source Serif 4", Georgia, serif, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", emoji;
     line-height: 1.72;
     font-size: 11pt;
   }
   .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
-    font-family: Inter, "Segoe UI", sans-serif;
+    font-family: Inter, "Segoe UI", sans-serif, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", emoji;
     line-height: 1.22;
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -30,7 +30,7 @@ const EXPORT_STYLES = `
     margin: 0 0 0.75rem;
   }
   .markdown-body pre, .markdown-body code {
-    font-family: "JetBrains Mono", Consolas, monospace;
+    font-family: "JetBrains Mono", Consolas, monospace, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", emoji;
     font-size: 0.88em;
   }
   .markdown-body pre {
@@ -133,7 +133,7 @@ function buildMarkdownPrintHtml(document: MarkdownDocument): string {
     body {
       margin: 0;
       padding: 1.5rem;
-      font-family: "JetBrains Mono", Consolas, monospace;
+      font-family: "JetBrains Mono", Consolas, monospace, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", emoji;
       font-size: 10pt;
       line-height: 1.55;
       white-space: pre-wrap;
